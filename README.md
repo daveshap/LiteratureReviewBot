@@ -1,5 +1,7 @@
 # Large Corpus Insights
 
+`docker run -p 6333:6333 -v ./qdrant_storage:/qdrant/storage qdrant/qdrant`
+
 Given a large volume of text (hundreds, thousands, or millions of documents) find ways to extract useful and meaningful insights. Here are some potential use-cases:
 
 - **Research assistant** - Use powerful new semantic search to find hidden or non-obvious connections between research.
