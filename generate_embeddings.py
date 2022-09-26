@@ -45,7 +45,7 @@ if __name__ == '__main__':
     embed = hub.load('https://tfhub.dev/google/universal-sentence-encoder-large/5')
     arxiv = open_file('c:/arxiv/arxiv-metadata-oai-snapshot.json').splitlines()
     print('Articles loaded:', len(arxiv))
-    chunk_size = 100
+    chunk_size = 300
     chunks = [arxiv[i:i + chunk_size] for i in range(0, len(arxiv), chunk_size)]
     total = len(chunks)
     print('Chunks to process:', total)
@@ -60,4 +60,4 @@ if __name__ == '__main__':
         remaining = (total - count) * avg
         hours = remaining / 3600
         print(count, total - count, hours)
-        exit()
+        #exit()
