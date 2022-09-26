@@ -22,20 +22,18 @@ if __name__ == '__main__':
     embed = hub.load("https://tfhub.dev/google/universal-sentence-encoder-large/5")
     arxiv = open_file('c:/arxiv/arxiv-metadata-oai-snapshot.json').splitlines()
     print('Articles loaded:', len(arxiv))
-    #exit(0)
     errors = list()
+    count = 0
     for article in arxiv:
+        count = count + 1
         try:
             info = json.loads(article)
-            #print(info['title'], info['abstract'])
-            #exit(0)
             title = re.sub('\s+', ' ', info['title'].strip())
-            print(title)
+            print(count, title)
             abstract = re.sub('\s+', ' ', info['abstract'].strip())
             embeddings = embed([title + ' ' + abstract])
             vector = embeddings.numpy().tolist()[0]
             save_data({'title': title, 'abstract': abstract, 'embedding': vector})
-            #exit(0)
         except:
             errors.append(article)
     with open('errors.json', 'w', encoding='utf-8') as outfile:
