@@ -1,35 +1,25 @@
-# Large Corpus Insights
+# Literature Review Bot
 
-`docker run -p 6333:6333 -v ./qdrant_storage:/qdrant/storage qdrant/qdrant`
+## Setup
 
-Given a large volume of text (hundreds, thousands, or millions of documents) find ways to extract useful and meaningful insights. Here are some potential use-cases:
+### Docker and Qdrant
 
-- **Research assistant** - Use powerful new semantic search to find hidden or non-obvious connections between research.
-- **Knowledge graph** - Render massive amounts of data as a web of linkages for rapid traversal and visualization.
-- **Interactive data** - Create a QA platform that allows for arbitrary questions and answers.
-- **Finetuned generation** - Rapidly produce novel content such as research papers, grant proposals, or academic texts.
-- **Teaching aid** - Generate structured teaching material from an arbitrary corpus of data.
+1. Download and setup Docker and/or Docker Desktop
+2. Pull the Qdrant container and run it: `docker run -p 6333:6333 -v ./qdrant_storage:/qdrant/storage qdrant/qdrant`
 
-## Grant Proposals
+### Download arXiv metadata from Kaggle
 
-- https://charity.lovetoknow.com/Examples_of_Successful_Grant_Proposals
-- https://www.kurzweiledu.com/files/proof_resources_grant1.pdf
-- https://www.salemeducationfoundation.org/sample-grant
-- https://www2.ed.gov/programs/iegpslrc/lrc-sampleapp-gwu.pdf
-- https://wtgrantfoundation.org/library/uploads/2016/02/Examples-of-Successful-Proposals-Scholars-Program.pdf
-- https://www.oneoc.org/media/1079/cdbg-grant-proposal-sample-carol-geisbauer.pdf
-- https://chescocf.org/wp-content/uploads/2014/11/Kennett-Area-Senior-Center-16.pdf
-- https://imaginefund.umn.edu/examples-successful-proposals
-- https://r2arts.files.wordpress.com/2009/04/individual-artist-grant-sample-packet.pdf
-- https://www.niaid.nih.gov/grants-contracts/sample-applications
-- https://www.aza.org/cgf-examples-of-successful-proposals
+1. https://www.kaggle.com/datasets/Cornell-University/arxiv
 
-## Scientific Papers
+Or download my processed data directly (but it is out of date)
 
-- https://www.ncbi.nlm.nih.gov/pmc/tools/textmining/ 
-- https://arxiv.org/help/bulk_data
-- https://www.kaggle.com/datasets/Cornell-University/arxiv
+1. https://www.kaggle.com/datasets/ltcmdrdata/arxiv-embeddings (I will not be maintaining this)
 
-## Academic Texts
+### Process data
 
-- https://libretexts.org/
+1. Run `generate_embeddings.py` to fill up `embeddings` folder (you may need to create this folder first)
+2. Fire up Qdrant if its not already running
+3. Run `index_arxiv_metadata.py` to upload embeddings to Qdrant
+4. Run `search_server.py` and go to http://127.0.0.1 to search for your articles
+5. Download the PDFs you want from arXiv into th `PDFs` folder
+6. Run `generate_literature_review.py` to create your final literature review
